@@ -2,13 +2,13 @@ import React, { useEffect, useState} from 'react';
 import Table from "../../components/table";
 import api from "../../config/service";
 
-export default function Produtos() {
+export default function Clientes() {
 
     const [lista, setLista] = useState([])
 
     useEffect(() => {
         async function axios(){
-            await api.get('/produtos')
+            await api.get('/clientes')
             .then((result) => {
                 setLista(result.data)
 
@@ -24,10 +24,9 @@ export default function Produtos() {
    
     const columns = [{
         name: "Código", align: "center"}, { 
-        name: "Descrição", align: "center"}, {
-        name: "Quantidade", align: "center"}, {
-        name: "Valor", align: "center"}, {
-        name: "Estoque", align: "center"}, {
+        name: "Nome", align: "center"}, {
+        name: "CPF/CNPJ", align: "center"}, {
+        name: "Telefone", align: "center"}, {
         name: "Ações", align: "center"
     }]
 

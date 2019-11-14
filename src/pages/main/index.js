@@ -17,10 +17,14 @@ import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import AccountBoxIcon from '@material-ui/icons/AccountBox';
 import AddIcon from '@material-ui/icons/Add';
-import PaymentIcon from '@material-ui/icons/Payment';
 import ListIcon from '@material-ui/icons/List';
 import ViewWeekIcon from '@material-ui/icons/ViewWeek';
+import { Link } from "react-router-dom";
 import Produto from "../produtos";
+import Cliente from "../clientes";
+import ProdutoCadastro from "../cadastro-produtos";
+import ClienteCadastro from "../cadastro-clientes";
+import "./style.css";
 
 const drawerWidth = 240;
 
@@ -80,10 +84,10 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-export default function PersistentDrawerLeft() {
+export default function Main(props) {
   const classes = useStyles();
   const theme = useTheme();
-  const [open, setOpen] = React.useState(false);
+  const [open, setOpen] = React.useState(true);
 
   const handleDrawerOpen = () => {
     setOpen(true);
@@ -137,18 +141,18 @@ export default function PersistentDrawerLeft() {
               <ListItemIcon><AddIcon/></ListItemIcon>
               <ListItemText primary="Cadastros" />
               </ListItem>
-            <ListItem button>
-              <ListItemIcon><ViewWeekIcon/></ListItemIcon>
-              <ListItemText primary="Produtos" />
-            </ListItem>
-            <ListItem button>
-              <ListItemIcon><AccountBoxIcon /></ListItemIcon>
-              <ListItemText primary="Clientes" />
+            <Link to="/cadastro-produtos">
+              <ListItem button>
+                <ListItemIcon><ViewWeekIcon/></ListItemIcon>
+                <ListItemText primary="Produtos" />
               </ListItem>
-            <ListItem button>
-              <ListItemIcon><PaymentIcon/></ListItemIcon>
-              <ListItemText primary="Pedido" /> 
-            </ListItem>
+            </Link>
+            <Link to="/cadastro-clientes">
+              <ListItem button>
+                <ListItemIcon><AccountBoxIcon /></ListItemIcon>
+                <ListItemText primary="Clientes" />
+              </ListItem>
+            </Link>
         </List>
         <Divider />
         <List>
@@ -156,18 +160,18 @@ export default function PersistentDrawerLeft() {
               <ListItemIcon><ListIcon/></ListItemIcon>
               <ListItemText primary="Listagens" />
               </ListItem>
-            <ListItem button>
-              <ListItemIcon><ViewWeekIcon/></ListItemIcon>
-              <ListItemText primary="Produtos" />
-            </ListItem>
+            <Link to="/produtos">
+              <ListItem button>
+                <ListItemIcon><ViewWeekIcon/></ListItemIcon>
+                <ListItemText primary="Produtos" />
+              </ListItem>
+            </Link>
+            <Link to="/clientes">
             <ListItem button>
               <ListItemIcon><AccountBoxIcon /></ListItemIcon>
               <ListItemText primary="Clientes" />
               </ListItem>
-            <ListItem button>
-              <ListItemIcon><PaymentIcon/></ListItemIcon>
-              <ListItemText primary="Pedido" />
-            </ListItem>
+            </Link>
         </List>
       </Drawer>
       <main
@@ -176,7 +180,13 @@ export default function PersistentDrawerLeft() {
         })}
       >
         <div className={classes.drawerHeader}/>
-          <Produto/>
+          <div className="main-box">
+            {props.show === "cadastro-produtos" && (<ProdutoCadastro/>)}
+            {props.show === "cadastro-clientes" && (<ClienteCadastro/>)}
+            
+            {props.show === "produtos" && (<Produto/>)}
+            {props.show === "clientes" && (<Cliente/>)}
+          </div>
       </main>
     </div>
   );
